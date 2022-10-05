@@ -19,7 +19,7 @@ const Account = ({ session }) => {
       let { data, error, status } = await supabase
         .from("profiles")
         .select(`username, website, avatar_url`)
-        .eq("id".user.id)
+        .eq("id", user.id)
         .single();
 
       if (error && status !== 406) {
@@ -45,7 +45,7 @@ const Account = ({ session }) => {
       setLoading(true);
       const { user } = session;
 
-      const updater = {
+      const updates = {
         id: user.id,
         username,
         website,
