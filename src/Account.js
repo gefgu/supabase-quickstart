@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Avatar from "./Avatar";
 import { supabase } from "./supabaseClient";
 
 const Account = ({ session }) => {
@@ -71,6 +72,15 @@ const Account = ({ session }) => {
         "Saving ..."
       ) : (
         <form onSubmit={updateProfile} className="form-widget">
+          <Avatar
+            url={avatar_url}
+            size={150}
+            onUpload={(url) => {
+              setAvatarUrl(url);
+              updateProfile({ username, website, avatar_url: url });
+            }}
+          />
+
           <div>Email: {session.user.email}</div>
           <div>
             <label htmlFor="username">Name</label>
@@ -90,6 +100,7 @@ const Account = ({ session }) => {
               onChange={(e) => setWebsite(e.target.value)}
             />
           </div>
+
           <div>
             <button className="button primary block" disabled={loading}>
               Update profile

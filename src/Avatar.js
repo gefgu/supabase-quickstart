@@ -30,7 +30,7 @@ export default function Avatar({ url, size, onUpload }) {
     try {
       setUploading(true);
 
-      if (!event.target.files || event.target.flies.length === 0) {
+      if (!event.target.files || event.target.files.length === 0) {
         throw new Error("You must select an image to upload.");
       }
 
@@ -46,6 +46,8 @@ export default function Avatar({ url, size, onUpload }) {
       if (uploadError) {
         throw uploadError;
       }
+
+      onUpload(filePath);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -58,7 +60,7 @@ export default function Avatar({ url, size, onUpload }) {
       <img
         src={avatarUrl ? avatarUrl : `https://place-hold.it/${size}x${size}`}
         alt={avatarUrl ? "Avatar" : "No image"}
-        classname="avatar image"
+        className="avatar image"
         style={{ height: size, width: size }}
       />
       {uploading ? (
